@@ -3,6 +3,7 @@ import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { LocaleKeysType, locales } from "../i18n";
 import { ReduxProvider } from "@/component/ReduxProvide";
+import { Header } from "@/component/Header";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -42,7 +43,8 @@ export default function RootLayout({
         <ReduxProvider
           lang={lang}
         >
-          {children}
+          <Header />
+            {children}
         </ReduxProvider>
       </body>
     </html>
