@@ -26,7 +26,27 @@
             "format-email":"Please enter a valid email address",
             "format-phone":"Please enter a valid phone number",
             "format-memberNo":"Please enter a valid member number"
-
         }
-    }
+    },
+    "contactUs": {
+        "typeofEnquiryOptions": {
+          "- Select Enquiry Type-": "- Select Enquiry Type-",
+          "Account Login": "Account Login",
+          "Member Upgrade/ Renewal": "Member Upgrade/Renewal",
+          "Member Registration/ Recruitment": "Member Registration/Recruitment",
+          "Promotion/ Transactions": "Promotion/Transactions",
+          "Feedback(Order/ Service/ Food)": "Feedback(Order/Service/Food)",
+          "Member Account Deletion": "Member Account Deletion",
+          "Others": "Others"
+        }
+      },
+      "profile": {
+        "title_default": "- Select Title -",
+        "title_mr": "Mr.",
+        "title_mrs": "Mrs.",
+        "title_ms": "Ms.",
+        "title_miss": "Miss",
+        "title_dr": "Dr.",
+        "title_prof": "Prof."
+      }
 }

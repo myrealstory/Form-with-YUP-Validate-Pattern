@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface Product {
   id: string;
@@ -6,12 +6,17 @@ interface Product {
   price: number;
 }
 
-interface ProductState {
-  products: Product[];
+interface LoadingState {
+  isLoadingScreenDisplay: boolean;
 }
+
+type ProductState = {
+  products: Product[];
+} & LoadingState;
 
 const initialState: ProductState = {
   products: [],
+  isLoadingScreenDisplay: false,
 };
 
 const productSlice = createSlice({
@@ -24,8 +29,15 @@ const productSlice = createSlice({
     addProduct(state, action) {
       state.products.push(action.payload);
     },
+    setLoadingScreenDisplay: (state, action: PayloadAction<LoadingState["isLoadingScreenDisplay"]>) => {
+      state.isLoadingScreenDisplay = action.payload;
+    },
   },
 });
 
-export const { setProducts, addProduct } = productSlice.actions;
+export const { 
+  setProducts, 
+  addProduct,
+  setLoadingScreenDisplay
+ } = productSlice.actions;
 export default productSlice.reducer;

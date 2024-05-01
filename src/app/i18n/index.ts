@@ -5,22 +5,23 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 type LocaleKeysType = "en" | "tc";
 
 const locales: LocaleKeysType[] = ["en", "tc"];
-const defaultLocale: LocaleKeysType = "en";
-const defaultNameSpace = "common";
+const defaultLocale: LocaleKeysType = "tc";
+const defaultNamespace = "main";
 const LANGUAGE = {
-    EN: "en" as const ,
-    TC: "tc" as const
-}
+  EN: "en" as const,
+  TC: "tc" as const,
+};
 
-const getOption = (lang : LocaleKeysType = defaultLocale, namespace = defaultNameSpace) => {
-    return {
-        lng: lang,
-        ns: namespace,
-        defaultNS: defaultNameSpace,
-        fallbackLng: defaultLocale,
-        supportedLngs: locales,
-        fallbackNS:defaultNameSpace,
-    };
+const getOptions = (lang: LocaleKeysType = defaultLocale, namespace = defaultNamespace) => {
+  return {
+    // debug: true,
+    supportedLngs: locales,
+    fallbackLng: defaultLocale,
+    lng: lang,
+    fallbackNS: defaultNamespace,
+    defaultNS: defaultNamespace,
+    ns: namespace,
+  };
 };
 
 const initI18next = async (lang: LocaleKeysType, namespace? : string) => {
@@ -29,7 +30,7 @@ const initI18next = async (lang: LocaleKeysType, namespace? : string) => {
     .use(initReactI18next)
     .use(resourcesToBackend((lng:string, ns:string)=>
     import(`./${lng}/${ns}.json`)))
-    .init(getOption(lang, namespace));
+    .init(getOptions(lang, namespace));
     return i18nInstance;
 }
 
@@ -41,5 +42,5 @@ const useTranslation = async (lang: LocaleKeysType, namespace? : string, option?
     }
 }
 
-export {locales, defaultLocale, useTranslation,getOption,LANGUAGE};
+export {locales, defaultLocale, useTranslation,getOptions,LANGUAGE};
 export type {LocaleKeysType};

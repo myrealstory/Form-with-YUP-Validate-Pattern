@@ -23,6 +23,18 @@ const getLangFromString = (str: string) => {
     return lang;
   };
 
+  const isNameValid = (string: string) => {
+    const startWithSpace = /^ /;
+    const startWithSpaceMatch = string.match(startWithSpace);
+    if (startWithSpaceMatch && [...startWithSpaceMatch]?.length > 0) {
+      return false;
+    }
+  }
+
+  const isEmailValid = (email: string) => {
+    return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email) && email?.length !== 0 && email?.length <= 100;
+  };
+
   const useWindowSize = () => {
     const path = usePathname();
     const location = path.split("/")[2];
@@ -106,4 +118,6 @@ const getLangFromString = (str: string) => {
   export {
     getLangFromString,
     useWindowSize,
+    isNameValid,
+    isEmailValid
   }
