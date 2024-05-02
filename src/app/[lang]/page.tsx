@@ -3,7 +3,12 @@ import BG from "@/images/PinBG.jpg"
 import { Information } from "@/component/form/Information";
 import { FormContent } from "@/component/form/FormContent";
 import "./globals.css";
-import { LocaleKeysType } from "../i18n";
+import { LocaleKeysType, locales } from "../i18n";
+
+export async function generateStaticParams(){
+  const lang = locales[0];
+  return [{lang}];
+}
 
 
 export default async function Home({params}: {params:{lang: LocaleKeysType}}) {
