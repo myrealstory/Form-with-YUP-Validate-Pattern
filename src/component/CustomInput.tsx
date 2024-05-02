@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
-import checkIcon from "@/images/icons/Icon_tick_Gold@3x.png";
-import warningIcon from "@/images/icons/Icon_warning@3x.png";
+import checkIcon from "@/images/icons/check-solid.png";
+import warningIcon from "@/images/icons/triangle-exclamation-solid.png";
 import { CustomInputType } from "@/types/componentTypes";
 
 import "./CustomInput.css";
@@ -139,6 +139,9 @@ export const CustomInput = ({
               className={`absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 md:right-6 ${
                 hasError ? "block" : "hidden"
               } h-auto w-[20px] cursor-default  md:w-[23px]`}
+              width={0}
+              height={0}
+              sizes="100vw"
             />
           </>
         )}

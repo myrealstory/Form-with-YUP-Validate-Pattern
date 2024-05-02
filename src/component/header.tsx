@@ -2,9 +2,9 @@
 import React from 'react';
 import Images from "next/image";
 import logo from "@/images/LOGO02-01.png";
-import shoppingCart from "@/images/cart-shopping-solid.svg";
-import accountIcon from "@/images/circle-user-solid.svg";
-import gitHubIcon from "@/images/github.svg";
+import shoppingCart from "@/images/cart-shopping-solid.png";
+import accountIcon from "@/images/circle-user-solid.png";
+import gitHubIcon from "@/images/github.png";
 import { MenuBtn } from './MenuBtn';
 
 export const Header = () => {

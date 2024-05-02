@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    font-size: 14px;
 }
 
 @layer utilities {
@@ -35,8 +36,51 @@ body {
 @layer components{
 
   .formContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    @apply flex lg:justify-between lg:gap-20 gap-5 lg:flex-row flex-col; 
+  }
+
+  .chip-Selected {
+    @apply bg-primaryGold font-bold text-white;
+  }
+
+  .chipBtn {
+    @apply rounded-[12px] border border-primaryGold  px-[29px] py-[16px] text-lg lg:text-md text-primaryGold xl:text-lg;
+  }
+
+  .chipBtnWithMoreRadius {
+    @apply h-[50px] w-[65px] rounded-[49px] xl:h-[55px] xl:w-[75px];
+  }
+
+  .ContactFormClass {
+    @apply flex w-full flex-col gap-7;
+  }
+  
+  .ContactFormNameContainer {
+    @apply flex flex-col lg:flex-row lg:gap-8;
+  }
+  
+  .ContactFormOrderReciptMsgContainer {
+    @apply flex flex-col gap-7;
+  }
+  
+  .ContactFormReCAPTCHA {
+    @apply flex flex-col items-center justify-center;
+  }
+  
+  .ContactFormMobileSubmitBtn {
+    @apply h-[56px] w-full flex-1 rounded-full text-2xl lg:text-2xl font-semibold leading-4  xl:py-[21px];
+  }
+  
+  .ContactFormDesktopSubmitBtn {
+    @apply hidden h-[50px] w-full items-center justify-center rounded-full  text-xl font-medium leading-4 text-white  md:flex  xl:py-[21px];
+  }
+
+  .labelText {
+    @apply block text-[16px] font-semibold leading-5 lg:text-primaryGold xl:text-[17px];
+  }
+
+  .ContactFormDesktopSubmitBtn {
+    @apply hidden h-[50px] w-full items-center justify-center rounded-full  text-xl font-medium leading-4 text-white  md:flex  xl:py-[21px];
   }
 
 }

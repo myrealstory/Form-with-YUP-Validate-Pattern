@@ -8,6 +8,13 @@ import { ContactUsFormInputType, FormErrorType, FormValueType, OptionalFormValue
 import { mixed, number, object, string } from 'yup';
 import { setLoadingScreenDisplay } from '@/redux/slice/product';
 import { useDispatch } from 'react-redux';
+import { CustomSelect } from '../CustomSelect';
+import { CustomChip } from '../CustomChip';
+import { CustomInput } from '../CustomInput';
+import dropDown from "@/images/icons/caret-down-solid.png";
+import { CustomTextArea } from '../CustomTextArea';
+import { Upload } from '../Upload';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export const Headline = ({title}:{title:string}) =>{
     return (
@@ -388,6 +395,79 @@ export const FormContent = () => {
         }
     };
 
+    const onTypeofEnquiryUpdate = (typeofEnquiry: string) =>{
+        if(formValue.typeofEnquiry !== typeofEnquiry){
+            setFormValue({
+                ...formValue,
+                typeofEnquiry,
+            });
+        }
+
+        onBlurValidation({
+            typeofEnquiry,
+        },
+            formError => {
+                let memberNumberHasError: string | false | undefined = undefined;
+                let orderReceiptHasError: string | false | undefined = undefined;
+                const shouldCheckOrderReceipt = isOrderReceiptNeeded(typeofEnquiry);
+
+                if(typeofEnquiry !== "MEMBER_ACCOUNT_DELETION"){
+                    memberNumberHasError = false;
+                }
+
+                if(!shouldCheckOrderReceipt || !optionalFormValue.orderReceipt?.length){
+                    orderReceiptHasError = false;
+                }
+
+                // update error form with multi fields
+                if(typeofEnquiry === "MEMBER_ACCOUNT_DELETION"){
+                    object({
+                        memberNumber : ContactFromYup["memberNumber"],
+                        typeofEnquiry: ContactFromYup["typeofEnquiry"],
+                    })
+                    .validate({
+                        memberNumber: optionalFormValue.memberNumber,
+                        typeofEnquiry,
+                    })
+                    .then(()=>{
+                        memberNumberHasError = false;
+                    })
+                    .catch(error =>{
+                        memberNumberHasError = error.message;
+                    })
+                    .finally(()=>{
+                        setFormError({
+                            ...formError,
+                            memberNumber: memberNumberHasError,
+                            orderReceipt: formError?.orderReceipt ?? orderReceiptHasError,
+                        });
+                    })
+                } else {
+                    onBlurValidation(
+                        Object.assign(
+                            {
+                                mmeberNumber: optionalFormValue.memberNumber,
+                            },
+                            shouldCheckOrderReceipt ?
+                            {
+                                orderReceipt: optionalFormValue.orderReceipt,
+                            }:{}
+                        ),
+                        ()=>{
+                            if(!shouldCheckOrderReceipt){
+                                setFormError({
+                                    ...formError,
+                                    orderReceipt: false,
+                                });
+
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    }
+
 
     
     
@@ -399,11 +479,349 @@ export const FormContent = () => {
             <p className='text-center md:text-left md:mb-12 mb-8 lg:text-lg text-md text-primaryDark'>
                 {t("form.inner.topicContent")}
             </p>
+            <div className='mb-4'>
+                <Headline title={t("form.inner.title")}/>
+                {width < 768 ? (
+                    <CustomSelect 
+                        items={titleItems} 
+                        dropdownIcon={dropDown}
+                        onChange={(value)=>{
+                            setFormValue({
+                                ...formValue,
+                                title: value,
+                            });
+                            onBlurValidation({
+                                title: value,
+                            });
+                        }}     
+                        value={formValue.title}
+                        hasError={!!formError?.title}
+                        error={formError?.title as string}               
+                    />
+                ):(
+                    <CustomChip
+                        items={titleItems}
+                        onClick={(value)=>{
+                            setFormValue({
+                                ...formValue,
+                                title: value,
+                            });
+                            onBlurValidation({
+                                title: value,
+                            });
+                        }}
+                        value={formValue.title}
+                        hasError={!!formError?.title}
+                        error={formError?.title as string}
+                    />
+                )}
+            </div>
 
-            // form content
-            <Headline title={t("form.inner.title")}/>
+            <div className='ContactFormNameContainer mb-4'>
+                <CustomInput
+                    labelClasses= "labelText"
+                    label={t("form.info.contactName")}
+                    type='TEXT'
+                    placeholder={t("form.info.givenName")}
+                    value={formValue.firstName}
+                    handleChange={( event : React.ChangeEvent<HTMLInputElement>)=>{
+                        setFormValue({
+                            ...formValue,
+                            firstName: event.target.value,
+                        });
+                    }}
+                    hasError={!!formError?.firstName}
+                    error={formError?.firstName as string}
+                    onBlur={async()=>{
+                        setFormValue({
+                            ...formValue,
+                            firstName: formValue.firstName.trim(),
+                        });
 
+                        onBlurValidation({
+                            firstName: formValue.firstName,
+                        });
+                    }}
+                    maxLength={25}
+                    textClasses='lg:pr-[3.3rem]'
+                />
+                <CustomInput
+                    labelClasses= "labelText"
+                    type='TEXT'
+                    containerClasses='justify-end'
+                    placeholder={t("form.info.birthName")}
+                    value={formValue.lastName}
+                    handleChange={( event : React.ChangeEvent<HTMLInputElement>)=>{
+                        setFormValue({
+                            ...formValue,
+                            lastName: event.target.value,
+                        });
+                    }}
+                    hasError={!!formError?.lastName}
+                    error={formError?.lastName as string}
+                    onBlur={async()=>{
+                        setFormValue({
+                            ...formValue,
+                            lastName: formValue.lastName.trim(),
+                        });
 
+                        onBlurValidation({
+                            lastName: formValue.lastName.trim(),
+                        });
+                    }}
+                    maxLength={25}
+                    textClasses='lg:pr-[3.3rem]'
+                    />
+            </div>
+            <div className='mb-4'>
+                <CustomInput 
+                    labelClasses='labelText'
+                    label={t("form.info.emailWithStar") as string}
+                    type='TEXT'
+                    placeholder={t("form.info.yourEmail")}
+                    value={formValue.email}
+                    handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+                        setFormValue({
+                            ...formValue,
+                            email: event.target.value,
+                        });
+                    }}
+                    hasError={!!formError?.email}
+                    error={formError?.email as string}
+                    onBlur={()=>{
+                        setFormValue({
+                            ...formValue,
+                            email: formValue.email.trim(),
+                        });
+
+                        onBlurValidation({
+                            email: formValue.email,
+                        });
+                    }}
+                />
+
+                {/* <div className='mt-1 pl-5 text-[0.85rem] font-medium leading-6 text-primaryDark opacity-60 lg:mt-2 lg:text-primaryGold lg:opacity-100 xl:text-md xl:leading-6'>
+                    <p className=' flex flex-col gap-2'>
+                        <span className='block'>
+                            {t("form.error.emailRemark1")}
+                        </span>
+                        <span className='block'>
+                            {t("form.error.emailRemark2")}
+                        </span>
+                    </p>
+                </div> */}
+            </div>
+
+            <CustomInput
+                labelClasses='labelText'
+                containerClasses='mb-4'
+                label={t("form.info.mobileNumberWithStar") as string}
+                type='TEL'
+                maxLength={8}
+                placeholder={t("form.info.onlyTWNumberAllowed")}
+                value={formValue.phone}
+                handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+
+                    const value = event.target.value;
+                    if(isNaN(Number(value)) || (value.includes(".") && value.split(".")[1].length === 0)){
+                        return ;
+                    }
+
+                    setFormValue({
+                        ...formValue,
+                        phone: value,
+                    });
+                }}
+                hasError={!!formError?.phone}
+                error={formError?.phone as string}
+                onBlur={()=>{
+                    onBlurValidation({
+                        phone: formValue.phone,
+                    });
+                }}
+                leftComponent={()=>
+                    (
+                        <div
+                            className='absolute -left-2 top-0 flex h-full w-[60px] items-center pl-6 pr-0 text-lg font-semibold md:w-[75px] md:pl-10 md:pr-5 md:text-lg'
+                        >
+                            +886
+                        </div>
+                    )
+                }
+            />
+            <CustomInput 
+                id='memberNumber'
+                containerClasses='mb-4'
+                labelClasses='labelText'
+                label={`${t("form.info.memberNumber")}${formValue.typeofEnquiry === "MEMBER_ACCOUNT_DELETION" ? "*" : ""}`}
+                type='TEL'
+                maxLength={10}
+                placeholder={t("form.info.memberNumber")}
+                value={optionalFormValue.memberNumber}
+                handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+                    const newValue = event.target.value.replace(/\s/g, "");
+
+                    if(newValue === "" || /^\d+$/.test(newValue)){
+                        setOptionalFormValue({
+                            ...optionalFormValue,
+                            memberNumber: newValue,
+                        });
+                    }
+                }}
+                hasError={!!formError?.memberNumber}
+                error={formError?.memberNumber as string}
+                onBlur={()=>{
+                    onBlurValidation({
+                        memberNumber: optionalFormValue.memberNumber,
+                    });
+                }}
+            />
+            <div className='mb-4'>
+                <Headline title={`${t("form.inner.type")}`}/>
+                <CustomSelect
+                    items={typeofEnquiryItems}
+                    onChange={(value: string) => {
+                        onTypeofEnquiryUpdate(value);
+                    } }
+                    value={formValue.typeofEnquiry}
+                    hasError={!!formError?.typeofEnquiry}
+                    error={formError?.typeofEnquiry as string} 
+                    dropdownIcon={dropDown}
+                    />
+            </div>
+
+            {shouldInputOrderReceipt && (
+                <CustomInput 
+                    labelClasses='labelText'
+                    label={t("form.inner.orderNumber")} 
+                    containerClasses='mb-4'
+                    type={'TEXT'} 
+                    placeholder={t("form.info.orderReceiptNumberOptional")} 
+                    value={optionalFormValue.orderReceipt}
+                    handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
+
+                        const newValue = event.target.value.replace(/\s/g, "");
+
+                        if(newValue === "" || /^\d+$/.test(newValue)){
+                            setOptionalFormValue({
+                                ...optionalFormValue,
+                                orderReceipt: newValue,
+                            });
+                        }
+                    }}
+                    onBlur={()=>{
+                        onBlurValidation({
+                            orderReceipt: optionalFormValue.orderReceipt,
+                        });
+                    }}
+                    hasError={!!formError?.orderReceipt}
+                    error={formError?.orderReceipt as string}
+                    maxLength={10}
+                    /> 
+            )}
+
+            {formValue.typeofEnquiry !== undefined && (
+                <>
+                    <CustomTextArea 
+                        labelClasses='labelText'
+                        label={t("form.inner.yourMessage")}
+                        containerClasses='mb-4'
+                        name={"message"}
+                        id='message'
+                        maxLength={2000}
+                        minLength={1}
+                        rows={4}
+                        cols={40}
+                        required={true}
+                        handleChange={(event:React.ChangeEvent<HTMLTextAreaElement>)=>{
+                            setFormValue({
+                                ...formValue,
+                                message: event.target.value,
+                            });
+                        }}
+                        onBlur={()=>{
+                            onBlurValidation({
+                                message: formValue.message,
+                            });
+                        }}
+                        hasError={!!formError?.message}
+                        error={formError?.message as string}
+                        value={formValue.message}
+                        placeholder={t("form.info.messagePlaceholder")}
+                    />
+                    <Upload 
+                        onImageUpload={(file: File | undefined)=>{
+                            //might need to use "FormData" for attachment object
+                            
+                            setOptionalFormValue({
+                                ...optionalFormValue,
+                                attachemnt: file,
+                            });
+                            onBlurValidation({
+                                attachemnt: file,
+                            });
+                        }}
+                        onDelete={()=>{
+                            setOptionalFormValue({
+                                ...optionalFormValue,
+                                attachemnt: undefined,
+                            });
+                            onBlurValidation({
+                                attachemnt: undefined,
+                            });
+                        }}
+                        hasError={!!formError?.attachemnt}
+                        error={formError?.attachemnt as string}
+                        lang={lang}
+                        containerClasses='mb-4'
+                    />
+                </>
+            )}
+
+            <div className='ContactFormReCAPTCHA mb-4'>
+                <ReCAPTCHA 
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    onChange={(token:string | null)=>{
+                        setFormValue({
+                            ...formValue,
+                            recaptcha: token === null ? undefined : token,
+                        });
+                        onBlurValidation({
+                            recaptcha: token,
+                        });
+                    }}
+                    onExpired={()=>{
+                        setFormValue({
+                            ...formValue,
+                            recaptcha: undefined,
+                        });
+
+                        onBlurValidation({
+                            recaptcha: undefined,
+                        });
+                    }}
+                    size='normal'
+                    badge='inline'
+                    hl={`${lang === "en" ? "en" : "zh-HK"}`}
+                />
+                {!!formError.recaptcha && formError.recaptcha?.length && (
+                    <p className='text-md font-semibold text-primaryPurple'>
+                        {formError.recaptcha}
+                    </p>
+                )}
+            </div>
+             <button
+                type='button'
+                onClick={onSubmit}
+                disabled={isSubmitting}
+                className={`ContactFormDesktopSubmitBtn ${
+                    !isFormValid || isSubmitting 
+                    ? "cursor-default bg-[#AF9B7C]"
+                    :"cursor-pointer bg-primaryGold hover:bg-[#79684D]"
+                }`}
+             >
+                {t("form.inner.submit")}
+            </button>   
         </div>
     );
 

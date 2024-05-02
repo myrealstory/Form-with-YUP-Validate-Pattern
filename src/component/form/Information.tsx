@@ -31,12 +31,12 @@ const InfoFormatContent = ({Icon, title, content, remark,email,phone,location}:I
                             className='w-full h-auto object-contain'
                         />
                     </div>
-                    <div className='pl-4 box-content max-w-[90%]'>
-                        <p className='mb-3 lg:text-[25px] lg:leading-[25px] text-xl font-semibold'>{title}</p>
+                    <div className='pl-4 box-content max-w-[95%]'>
+                        <p className='mb-3 lg:text-3xl lg:leading-[25px] text-xl font-semibold'>{title}</p>
                         <a 
                             href={`${email? "mailto:miyokono543@gmail.com": phone? `tel:${content}`: location? `https://maps.app.goo.gl/hGzX7SLK5BQ6Fdzf8`: ''}`}
                             target='_blank'
-                            className={`text-primaryGold ${email? "underline":""} mb-1 md:text-[25px] text-xl`}
+                            className={`text-primaryGold ${email? "underline":""} mb-1 md:text-3xl text-xl`}
                             >
                             {content}
                         </a>

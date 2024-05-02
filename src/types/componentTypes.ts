@@ -42,7 +42,7 @@ export type CustomInputType = {
     title:string | undefined;
     typeofEnquiry: string | undefined;
     countryCode: "886";
-    recaptcha: string;
+    recaptcha: string | undefined;
     message: string;
     phone: string | undefined;
   }
@@ -70,4 +70,25 @@ export type ContactUsFormInputType = {
   image?: File;
   lang: LocaleKeysType;
 };
+
+export interface CustomMessageProps {
+  name: string;
+  id: string;
+  maxLength?: number;
+  minLength?: number;
+  required?: boolean;
+  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (...params: any) => any;
+  hasError?: boolean;
+  error?: string;
+  containerClasses?: string;
+  textContainerClasses?: string;
+  outerMessageContainer?: string;
+  label?: string;
+  labelClasses?: string;
+  placeholder: string;
+  value: string | number | null | undefined;
+  rows: number;
+  cols: number;
+}
 
