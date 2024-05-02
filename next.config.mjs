@@ -3,7 +3,7 @@ const nextConfig = {
     reactStrictMode: true,
     compress: true,
     swcMinify: true,
-    webpack(config, options) {
+    webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
             use: ["@svgr/webpack"],
