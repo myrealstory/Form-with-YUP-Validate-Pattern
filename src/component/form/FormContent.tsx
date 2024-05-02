@@ -1,8 +1,7 @@
 "use client";
 import react, { useMemo } from "react";
 import { useTranslation } from "@/app/i18n/client";
-import { getLangFromString, isEmailValid, isNameValid, useWindowSize } from "../commonUtils";
-import { usePathname } from "next/navigation";
+import { isEmailValid, isNameValid, useWindowSize } from "../commonUtils";
 import { ContactFromYupType } from "@/component/form/validation";
 import { ContactUsFormInputType, FormErrorType, FormValueType, OptionalFormValueType } from "@/types/componentTypes";
 import { mixed, number, object, string } from "yup";
@@ -15,6 +14,7 @@ import dropDown from "@/images/icons/caret-down-solid.png";
 import { CustomTextArea } from "@/component/CustomTextArea";
 import { Upload } from "@/component/Upload";
 import ReCAPTCHA from "react-google-recaptcha";
+import { LocaleKeysType } from "@/app/i18n";
 
 export const Headline = ({title}:{title:string}) =>{
     return (
@@ -26,10 +26,9 @@ export const Headline = ({title}:{title:string}) =>{
 
 
 
-export const FormContent = () => {
+export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
 
-    const path = usePathname();
-    const lang = getLangFromString(path);
+    
     const {translate: t} =useTranslation(lang);
     const [isEditing, setIsEditing] = react.useState(false);
     const [isSubmitting, setIsSubmitting] = react.useState(false);

@@ -3,8 +3,11 @@ import BG from "@/images/PinBG.jpg"
 import { Information } from "@/component/form/Information";
 import { FormContent } from "@/component/form/FormContent";
 import "./globals.css";
+import { LocaleKeysType } from "../i18n";
 
-export default function Home() {
+
+export default async function Home({params}: {params:{lang: LocaleKeysType}}) {
+  const {lang} = params;
   return (
     <div>
       <div className="w-full md:h-[300px] h-[150px]">
@@ -19,7 +22,7 @@ export default function Home() {
       </div>
       <div className="formContainer md:py-20 py-8 lg:px-28 md:px-20 px-8 gap-20">
           <div className=" bg-primaryGold05 rounded-3xl md:py-[70px] md:px-[60px] py-8 px-5">
-            <FormContent />
+            <FormContent lang={lang}/>
           </div>
           <Information/>
       </div>
