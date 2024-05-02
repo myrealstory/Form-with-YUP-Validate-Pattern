@@ -3,17 +3,17 @@ import react, { useMemo } from 'react';
 import { useTranslation } from '@/app/i18n/client';
 import { getLangFromString, isEmailValid, isNameValid, useWindowSize } from '../commonUtils';
 import { usePathname } from 'next/navigation';
-import { ContactFromYupType } from './validation';
+import { ContactFromYupType } from '@/component/form/validation';
 import { ContactUsFormInputType, FormErrorType, FormValueType, OptionalFormValueType } from '@/types/componentTypes';
 import { mixed, number, object, string } from 'yup';
 import { setLoadingScreenDisplay } from '@/redux/slice/product';
 import { useDispatch } from 'react-redux';
-import { CustomSelect } from '../CustomSelect';
-import { CustomChip } from '../CustomChip';
-import { CustomInput } from '../CustomInput';
+import { CustomSelect } from '@/component/CustomSelect';
+import { CustomChip } from '@/component/CustomChip';
+import { CustomInput } from '@/component/CustomInput';
 import dropDown from "@/images/icons/caret-down-solid.png";
-import { CustomTextArea } from '../CustomTextArea';
-import { Upload } from '../Upload';
+import { CustomTextArea } from '@/component/CustomTextArea';
+import { Upload } from '@/component/Upload';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 export const Headline = ({title}:{title:string}) =>{
