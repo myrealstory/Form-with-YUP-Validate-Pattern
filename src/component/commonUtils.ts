@@ -1,6 +1,6 @@
 "use client";
-import react, {useState,useEffect, useRef} from 'react';
-import { usePathname } from 'next/navigation';
+import {useState,useEffect, useRef} from "react";
+import { usePathname } from "next/navigation";
 import { LocaleKeysType, defaultLocale, locales } from "@/app/i18n";
 
 type WindowSizeProps = {

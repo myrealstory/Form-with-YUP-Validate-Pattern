@@ -1,11 +1,11 @@
-import {createInstance} from 'i18next';
-import {initReactI18next} from 'react-i18next/initReactI18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
+import {createInstance} from "i18next";
+import {initReactI18next} from "react-i18next/initReactI18next";
+import resourcesToBackend from "i18next-resources-to-backend";
 
 type LocaleKeysType = "en" | "tc";
 
 const locales: LocaleKeysType[] = ["en", "tc"];
-const defaultLocale: LocaleKeysType = "tc";
+const defaultLocale: LocaleKeysType = "en";
 const defaultNamespace = "main";
 const LANGUAGE = {
   EN: "en" as const,

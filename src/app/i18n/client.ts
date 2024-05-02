@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from 'react';
-import i18next from 'i18next';
+import { useEffect } from "react";
+import i18next from "i18next";
 import {initReactI18next, useTranslation as useTranslationOrg} from "react-i18next";
-import resourcesToBackend from 'i18next-resources-to-backend';
+import resourcesToBackend from "i18next-resources-to-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { LocaleKeysType,  getOptions } from '.';
+import { LocaleKeysType,  getOptions } from ".";
 
 i18next
     .use(initReactI18next)
@@ -15,14 +15,14 @@ i18next
     .init({
         ...getOptions(),
         detection: {
-            order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
-            caches: ['cookie']
+            order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag", "path", "subdomain"],
+            caches: ["cookie"]
         }
     });
 
 
 const useTranslation = (lang: LocaleKeysType, namespace?: string, option?: {keyPrefix: string}) => {
-    console.log('Current language:', i18next.resolvedLanguage);
+    console.log("Current language:", i18next.resolvedLanguage);
     useEffect(() => {
         if (i18next.resolvedLanguage !== lang) {
             i18next.changeLanguage(lang);
@@ -30,7 +30,7 @@ const useTranslation = (lang: LocaleKeysType, namespace?: string, option?: {keyP
     }, [lang]); // Dependency array ensures this runs only if `lang` changes
     
     const { t: translate, i18n } = useTranslationOrg(namespace, option);
-    console.log('Namespace being used:', namespace);
+    console.log("Namespace being used:", namespace);
     return { translate, i18n };
 }
 

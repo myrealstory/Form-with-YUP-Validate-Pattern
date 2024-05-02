@@ -1,26 +1,32 @@
-import { locales } from '@/app/i18n';
-import acceptLanguage from 'accept-language';
-import { NextRequest, NextResponse } from 'next/server';
-import { getLangFromString } from './component/commonUtils';
-import { CookiesKey } from '@/constants/cookies';
+import { locales,defaultLocale } from "@/app/i18n";
+import acceptLanguage from "accept-language";
+import { NextRequest, NextResponse } from "next/server";
+import { getLangFromString } from "./component/commonUtils";
+import { CookiesKey } from "@/constants/cookies";
  
 acceptLanguage.languages(locales);
 
 const checkLocal = (request: NextRequest, response: NextResponse) => {
+
     if(request.nextUrl.pathname === "/"){
-        return response;
+        const url = new URL(request.url);
+        url.pathname = `/${defaultLocale}`;
+        return NextResponse.redirect(url);
     }
 
     const langFromPathname = getLangFromString(request.nextUrl.pathname);
-    const queryParams = request.nextUrl.search;
+    const queryParams = request.nextUrl.searchParams.toString();
 
     if(
         !locales.some(locales => request.nextUrl.pathname.startsWith(`/${locales}`)) &&
         !request.nextUrl.pathname.startsWith("/_next") 
     ){
-        response = NextResponse.redirect(
-            new URL(`/${langFromPathname}${request.nextUrl.pathname}${queryParams ?? ""}`, request.url)
-        );
+        const url = new URL(request.url);
+        url.pathname = `/${defaultLocale}${request.nextUrl.pathname}${queryParams ?? ""}`;
+        if(queryParams){
+            url.search = queryParams;
+        }
+        return NextResponse.redirect(url);
     }
 
     const referer = request.headers.get("referer");

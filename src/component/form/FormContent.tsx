@@ -1,25 +1,25 @@
 "use client";
-import react, { useMemo } from 'react';
-import { useTranslation } from '@/app/i18n/client';
-import { getLangFromString, isEmailValid, isNameValid, useWindowSize } from '../commonUtils';
-import { usePathname } from 'next/navigation';
-import { ContactFromYupType } from '@/component/form/validation';
-import { ContactUsFormInputType, FormErrorType, FormValueType, OptionalFormValueType } from '@/types/componentTypes';
-import { mixed, number, object, string } from 'yup';
-import { setLoadingScreenDisplay } from '@/redux/slice/product';
-import { useDispatch } from 'react-redux';
-import { CustomSelect } from '@/component/CustomSelect';
-import { CustomChip } from '@/component/CustomChip';
-import { CustomInput } from '@/component/CustomInput';
+import react, { useMemo } from "react";
+import { useTranslation } from "@/app/i18n/client";
+import { getLangFromString, isEmailValid, isNameValid, useWindowSize } from "../commonUtils";
+import { usePathname } from "next/navigation";
+import { ContactFromYupType } from "@/component/form/validation";
+import { ContactUsFormInputType, FormErrorType, FormValueType, OptionalFormValueType } from "@/types/componentTypes";
+import { mixed, number, object, string } from "yup";
+import { setLoadingScreenDisplay } from "@/redux/slice/product";
+import { useDispatch } from "react-redux";
+import { CustomSelect } from "@/component/CustomSelect";
+import { CustomChip } from "@/component/CustomChip";
+import { CustomInput } from "@/component/CustomInput";
 import dropDown from "@/images/icons/caret-down-solid.png";
-import { CustomTextArea } from '@/component/CustomTextArea';
-import { Upload } from '@/component/Upload';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { CustomTextArea } from "@/component/CustomTextArea";
+import { Upload } from "@/component/Upload";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const Headline = ({title}:{title:string}) =>{
     return (
-        <div className='lg:mb-3 mb-2'>
-            <p className='text-primaryGold lg:text-lg text-md font-semibold'>{title}</p>
+        <div className="lg:mb-3 mb-2">
+            <p className="text-primaryGold lg:text-lg text-md font-semibold">{title}</p>
         </div>
     );
 }
@@ -34,7 +34,6 @@ export const FormContent = () => {
     const [isEditing, setIsEditing] = react.useState(false);
     const [isSubmitting, setIsSubmitting] = react.useState(false);
     const { width } = useWindowSize();
-    const isMolbileView = width < 768;
     const dispatch = useDispatch();
 
     const titleItems = useMemo(() => {
@@ -46,32 +45,32 @@ export const FormContent = () => {
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_mr"),
+            label: t("form.info.mr"),
             code: "Mr.",
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_mrs"),
+            label: t("form.info.mrs"),
             code: "Mrs.",
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_ms"),
+            label: t("form.info.ms"),
             code: "Ms.",
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_miss"),
+            label: t("form.info.miss"),
             code: "Miss",
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_dr"),
+            label: t("form.info.dr"),
             code: "Dr.",
             buttonStyle: commonStyle,
           },
           {
-            label: t("profile.title_prof"),
+            label: t("form.info.prof"),
             code: "Prof.",
             buttonStyle: commonStyle,
           },
@@ -83,42 +82,42 @@ export const FormContent = () => {
     
         return [
           {
-            label: t("contactUs.typeofEnquiryOptions.- Select Enquiry Type-"),
+            label: t("form.typeofEnquiryOptions.- Select Enquiry Type-"),
             code: undefined,
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Account Login"),
+            label: t("form.typeofEnquiryOptions.Account Login"),
             code: "ACCOUNT_LOGIN",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Member Upgrade/ Renewal"),
+            label: t("form.typeofEnquiryOptions.Member Upgrade/ Renewal"),
             code: "MEMBER_UPGRADE_RENEWAL",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Member Registration/ Recruitment"),
+            label: t("form.typeofEnquiryOptions.Member Registration/ Recruitment"),
             code: "MEMBER_REGISTRATION_RECRUITMENT",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Promotion/ Transactions"),
+            label: t("form.typeofEnquiryOptions.Promotion/ Transactions"),
             code: "PROMOTION_TRANSACTIONS",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Feedback(Order/ Service/ Food)"),
+            label: t("form.typeofEnquiryOptions.Feedback(Order/ Service/ Food)"),
             code: "FEEDBACK",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Member Account Deletion"),
+            label: t("form.typeofEnquiryOptions.Member Account Deletion"),
             code: "MEMBER_ACCOUNT_DELETION",
             buttonStyle: commonStyle,
           },
           {
-            label: t("contactUs.typeofEnquiryOptions.Others"),
+            label: t("form.typeofEnquiryOptions.Others"),
             code: "OTHERS",
             buttonStyle: commonStyle,
           },
@@ -127,38 +126,38 @@ export const FormContent = () => {
 
       const ContactFromYup: ContactFromYupType<FormErrorType>= {
         firstName: string()
-        .required(t("contactUs.error.required")!)
+        .required(t("form.error.required")!)
         .test("firstName", (value,ctx)=>{
             if(!isNameValid(value)){
-                return ctx.createError({message: t(`contactUs.error.${ctx.path}`)!});
+                return ctx.createError({message: t("form.error.${ctx.path}")!});
             }
             return true;
         }),
         lastName: string()
-        .required(t("contactUs.error.required")!)
+        .required(t("form.error.required")!)
         .test("lastName", (value,ctx)=>{
             if(!isNameValid(value)){
-                return ctx.createError({message: t(`contactUs.error.${ctx.path}`)!});
+                return ctx.createError({message: t("form.error.${ctx.path}")!});
             }
             return true;
         }),
         email: string()
-        .required(t("contactUs.error.required")!)
+        .required(t("form.error.required")!)
         .test("email",(value,ctx) =>{
             if(!isEmailValid(value)){
-                return ctx.createError({message: t(`contactUs.error.email`)! });
+                return ctx.createError({message: t("form.error.email")! });
             }
             return true;
         }),
-        title: string().required(t("contactUs.error.required")!),
-        typeofEnquiry: string().required(t("contactUs.error.required")!),
-        countryCode: string().required(t("contactUs.error.required")!),
-        recaptcha: string().required(t("contactUs.error.required")!),
-        message: string().required(t("contactUs.error.required")!),
-        phone: string().required(t("contactUs.error.required")!)
+        title: string().required(t("form.error.required")!),
+        typeofEnquiry: string().required(t("form.error.required")!),
+        countryCode: string().required(t("form.error.required")!),
+        recaptcha: string().required(t("form.error.required")!),
+        message: string().required(t("form.error.required")!),
+        phone: string().required(t("form.error.required")!)
         .test("phone", (value,ctx)=>{
             if(value && formValue.countryCode === "886" && value.length !== 9){
-                return ctx.createError({message: t(`contactUs.error.phone`)!});
+                return ctx.createError({message: t("form.error.phone")!});
             }
             return true;
         }),
@@ -182,7 +181,7 @@ export const FormContent = () => {
                 const valueStr = value.toString();
                 return valueStr.length === 8 || valueStr.length === 10 ?
                 true :
-                ctx.createError({message: t(`contactUs.error.orderReceipt`)!});
+                ctx.createError({message: t("form.error.orderReceipt")!});
         }),
         memberNumber: string().test("memberNumber", (value,ctx)=>{
             if(
@@ -192,13 +191,13 @@ export const FormContent = () => {
                     "MEMBER_ACCOUNT_DELETION") &&
                     (!value || value.trim().length === 0)
                 ){
-                    return ctx.createError({message: t(`contactUs.error.required`)!});
+                    return ctx.createError({message: t("form.error.required")!});
                 }
                 if(!value || (value && (value.length === 0 || value.length === 10))){
                     return true;
                 }
 
-                return ctx.createError({message: t(`contactUs.error.memberNumMSG`)! });
+                return ctx.createError({message: t("form.error.memberNumMSG")! });
         }),
         attachemnt: mixed<File>().test("attachemnt", (value,ctx)=>{
             const maxSizeOfImage = 4 * 1000 * 1000;
@@ -208,9 +207,9 @@ export const FormContent = () => {
             }
 
             if(value && value.size > maxSizeOfImage){
-                return ctx.createError({message: t(`contactUs.error.fileExceedMsg`)!});
+                return ctx.createError({message: t("form.error.fileExceedMsg")!});
             }else if(value && !allowFormatOfImage.includes(value.type)){
-                return ctx.createError({message: t(`contactUs.error.fileRemarks`)!});
+                return ctx.createError({message: t("form.error.fileRemarks")!});
             }
 
             return true;
@@ -473,13 +472,13 @@ export const FormContent = () => {
     
     return (
         <div>
-            <h5 className='text-primaryGold font-medium md:text-[32px] md:leading-[36px] text-center md:text-left md:mb-6 mb-4'>
+            <h5 className="text-primaryGold font-medium md:text-[32px] md:leading-[36px] text-center md:text-left md:mb-6 mb-4">
                 {t("form.inner.topic")}
             </h5>
-            <p className='text-center md:text-left md:mb-12 mb-8 lg:text-lg text-md text-primaryDark'>
+            <p className="text-center md:text-left md:mb-12 mb-8 lg:text-lg text-md text-primaryDark">
                 {t("form.inner.topicContent")}
             </p>
-            <div className='mb-4'>
+            <div className="mb-4">
                 <Headline title={t("form.inner.title")}/>
                 {width < 768 ? (
                     <CustomSelect 
@@ -517,11 +516,11 @@ export const FormContent = () => {
                 )}
             </div>
 
-            <div className='ContactFormNameContainer mb-4'>
+            <div className="ContactFormNameContainer mb-4">
                 <CustomInput
                     labelClasses= "labelText"
                     label={t("form.info.contactName")}
-                    type='TEXT'
+                    type="TEXT"
                     placeholder={t("form.info.givenName")}
                     value={formValue.firstName}
                     handleChange={( event : React.ChangeEvent<HTMLInputElement>)=>{
@@ -543,12 +542,12 @@ export const FormContent = () => {
                         });
                     }}
                     maxLength={25}
-                    textClasses='lg:pr-[3.3rem]'
+                    textClasses="lg:pr-[3.3rem]"
                 />
                 <CustomInput
                     labelClasses= "labelText"
-                    type='TEXT'
-                    containerClasses='justify-end'
+                    type="TEXT"
+                    containerClasses="justify-end"
                     placeholder={t("form.info.birthName")}
                     value={formValue.lastName}
                     handleChange={( event : React.ChangeEvent<HTMLInputElement>)=>{
@@ -570,14 +569,14 @@ export const FormContent = () => {
                         });
                     }}
                     maxLength={25}
-                    textClasses='lg:pr-[3.3rem]'
+                    textClasses="lg:pr-[3.3rem]"
                     />
             </div>
-            <div className='mb-4'>
+            <div className="mb-4">
                 <CustomInput 
-                    labelClasses='labelText'
+                    labelClasses="labelText"
                     label={t("form.info.emailWithStar") as string}
-                    type='TEXT'
+                    type="TEXT"
                     placeholder={t("form.info.yourEmail")}
                     value={formValue.email}
                     handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -600,12 +599,12 @@ export const FormContent = () => {
                     }}
                 />
 
-                {/* <div className='mt-1 pl-5 text-[0.85rem] font-medium leading-6 text-primaryDark opacity-60 lg:mt-2 lg:text-primaryGold lg:opacity-100 xl:text-md xl:leading-6'>
-                    <p className=' flex flex-col gap-2'>
-                        <span className='block'>
+                {/* <div className="mt-1 pl-5 text-[0.85rem] font-medium leading-6 text-primaryDark opacity-60 lg:mt-2 lg:text-primaryGold lg:opacity-100 xl:text-md xl:leading-6">
+                    <p className=" flex flex-col gap-2">
+                        <span className="block">
                             {t("form.error.emailRemark1")}
                         </span>
-                        <span className='block'>
+                        <span className="block">
                             {t("form.error.emailRemark2")}
                         </span>
                     </p>
@@ -613,10 +612,10 @@ export const FormContent = () => {
             </div>
 
             <CustomInput
-                labelClasses='labelText'
-                containerClasses='mb-4'
+                labelClasses="labelText"
+                containerClasses="mb-4"
                 label={t("form.info.mobileNumberWithStar") as string}
-                type='TEL'
+                type="TEL"
                 maxLength={8}
                 placeholder={t("form.info.onlyTWNumberAllowed")}
                 value={formValue.phone}
@@ -642,7 +641,7 @@ export const FormContent = () => {
                 leftComponent={()=>
                     (
                         <div
-                            className='absolute -left-2 top-0 flex h-full w-[60px] items-center pl-6 pr-0 text-lg font-semibold md:w-[75px] md:pl-10 md:pr-5 md:text-lg'
+                            className="absolute -left-2 top-0 flex h-full w-[60px] items-center pl-6 pr-0 text-lg font-semibold md:w-[75px] md:pl-10 md:pr-5 md:text-lg"
                         >
                             +886
                         </div>
@@ -650,11 +649,11 @@ export const FormContent = () => {
                 }
             />
             <CustomInput 
-                id='memberNumber'
-                containerClasses='mb-4'
-                labelClasses='labelText'
+                id="memberNumber"
+                containerClasses="mb-4"
+                labelClasses="labelText"
                 label={`${t("form.info.memberNumber")}${formValue.typeofEnquiry === "MEMBER_ACCOUNT_DELETION" ? "*" : ""}`}
-                type='TEL'
+                type="TEL"
                 maxLength={10}
                 placeholder={t("form.info.memberNumber")}
                 value={optionalFormValue.memberNumber}
@@ -676,7 +675,7 @@ export const FormContent = () => {
                     });
                 }}
             />
-            <div className='mb-4'>
+            <div className="mb-4">
                 <Headline title={`${t("form.inner.type")}`}/>
                 <CustomSelect
                     items={typeofEnquiryItems}
@@ -692,10 +691,10 @@ export const FormContent = () => {
 
             {shouldInputOrderReceipt && (
                 <CustomInput 
-                    labelClasses='labelText'
+                    labelClasses="labelText"
                     label={t("form.inner.orderNumber")} 
-                    containerClasses='mb-4'
-                    type={'TEXT'} 
+                    containerClasses="mb-4"
+                    type={"TEXT"} 
                     placeholder={t("form.info.orderReceiptNumberOptional")} 
                     value={optionalFormValue.orderReceipt}
                     handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -723,11 +722,11 @@ export const FormContent = () => {
             {formValue.typeofEnquiry !== undefined && (
                 <>
                     <CustomTextArea 
-                        labelClasses='labelText'
+                        labelClasses="labelText"
                         label={t("form.inner.yourMessage")}
-                        containerClasses='mb-4'
+                        containerClasses="mb-4"
                         name={"message"}
-                        id='message'
+                        id="message"
                         maxLength={2000}
                         minLength={1}
                         rows={4}
@@ -773,12 +772,12 @@ export const FormContent = () => {
                         hasError={!!formError?.attachemnt}
                         error={formError?.attachemnt as string}
                         lang={lang}
-                        containerClasses='mb-4'
+                        containerClasses="mb-4"
                     />
                 </>
             )}
 
-            <div className='ContactFormReCAPTCHA mb-4'>
+            <div className="ContactFormReCAPTCHA mb-4">
                 <ReCAPTCHA 
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                     onChange={(token:string | null)=>{
@@ -800,18 +799,18 @@ export const FormContent = () => {
                             recaptcha: undefined,
                         });
                     }}
-                    size='normal'
-                    badge='inline'
+                    size="normal"
+                    badge="inline"
                     hl={`${lang === "en" ? "en" : "zh-HK"}`}
                 />
                 {!!formError.recaptcha && formError.recaptcha?.length && (
-                    <p className='text-md font-semibold text-primaryPurple'>
+                    <p className="text-md font-semibold text-primaryPurple">
                         {formError.recaptcha}
                     </p>
                 )}
             </div>
              <button
-                type='button'
+                type="button"
                 onClick={onSubmit}
                 disabled={isSubmitting}
                 className={`ContactFormDesktopSubmitBtn ${

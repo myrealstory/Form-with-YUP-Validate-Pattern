@@ -1,5 +1,5 @@
 "use client";
-import react from 'react';
+import react from "react";
 
 interface MenuBtnProps {
     containerClass: string;

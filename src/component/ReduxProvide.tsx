@@ -9,7 +9,7 @@ interface ReduxProviderProps {
     lang: string;
     }
 
-export function ReduxProvider({children, initValue, lang}: ReduxProviderProps){
+export function ReduxProvider({children}: ReduxProviderProps){
     return (
         <Provider store={store}>
             {/* <ChildrenComponent lang={lang} initVale={initValue}> */}

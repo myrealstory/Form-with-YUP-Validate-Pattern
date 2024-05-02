@@ -23,13 +23,33 @@
             "orderReceiptNumber": "Order/ Receipt Number",
             "yourMessage": "Your Message*"
         },
+        "typeofEnquiryOptions": {
+            "- Select Enquiry Type-": "- Select Enquiry Type-",
+            "Account Login": "Account Login",
+            "Member Upgrade/ Renewal": "Member Upgrade/Renewal",
+            "Member Registration/ Recruitment": "Member Registration/Recruitment",
+            "Promotion/ Transactions": "Promotion/Transactions",
+            "Feedback(Order/ Service/ Food)": "Feedback(Order/Service/Food)",
+            "Member Account Deletion": "Member Account Deletion",
+            "Others": "Others"
+          },
         "error":{
             "format-name":"Please enter your name (only English letters and spaces are allowed)",
             "format-email":"Please enter a valid email address",
             "format-phone":"Please enter a valid phone number",
             "format-memberNo":"Please enter a valid member number",
             "emailRemark1": "sen-ryo member please fill in your registered email. ",
-            "emailRemark2": "Non-member please fill in your contact email."
+            "emailRemark2": "Non-member please fill in your contact email.",
+            "required": "*This is required",
+            "fileRemarks": "Support jpg./ jpeg./ png.(less than 4MB)",
+            "lastName": "Maximum 25 characters for surname field. No special character.",
+            "firstName": "Maximum 25 characters for given name field. No special character.",
+            "email": "Incorrect Email Format",
+            "hkMobileNumber": "Please enter a valid 8-digit HK mobile number.",
+            "fileExceedMsg": "The file exceeds 4MB",
+            "memberNumMsg": "Please enter a 10-digit sen-ryo member number.",
+            "failToSubmit": "Sorry, failed to submit your enquiry. Please try again. If this issue presists please contact us at cs@sen-ryo.com.hk",
+            "orderReceipt": "Please input 8 or 10-digit number."
         },
         "info":{
             "tellUsAboutYou": "Tell Us About You",
