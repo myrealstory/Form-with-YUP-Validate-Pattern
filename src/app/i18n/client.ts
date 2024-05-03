@@ -22,7 +22,6 @@ i18next
 
 
 const useTranslation = (lang: LocaleKeysType, namespace?: string, option?: {keyPrefix: string}) => {
-    console.log("Current language:", i18next.resolvedLanguage);
     useEffect(() => {
         if (i18next.resolvedLanguage !== lang) {
             i18next.changeLanguage(lang);
@@ -30,7 +29,6 @@ const useTranslation = (lang: LocaleKeysType, namespace?: string, option?: {keyP
     }, [lang]); // Dependency array ensures this runs only if `lang` changes
     
     const { t: translate, i18n } = useTranslationOrg(namespace, option);
-    console.log("Namespace being used:", namespace);
     return { translate, i18n };
 }
 

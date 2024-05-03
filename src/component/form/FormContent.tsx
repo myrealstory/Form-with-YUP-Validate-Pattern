@@ -19,7 +19,7 @@ import { LocaleKeysType } from "@/app/i18n";
 export const Headline = ({title}:{title:string}) =>{
     return (
         <div className="lg:mb-3 mb-2">
-            <p className="text-primaryGold lg:text-lg text-md font-semibold">{title}</p>
+            <p className="text-primaryGold md:text-lg text-md font-semibold">{title}</p>
         </div>
     );
 }
@@ -34,6 +34,8 @@ export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
     const [isSubmitting, setIsSubmitting] = react.useState(false);
     const { width } = useWindowSize();
     const dispatch = useDispatch();
+
+    
 
     const titleItems = useMemo(() => {
         const commonStyle = "chipBtnWithMoreRadius";
@@ -364,20 +366,43 @@ export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
             formData.append(key, value);
         });
 
-        try {
-            const response = await fetch("/api/submitForm", {
-                method: "POST",
-                body: formData,
-            });
+        // try {
+        //     const response = await fetch(`http://localhost:3000/api/submitForm`, {
+        //         method: "POST",
+        //         headers:{
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: formData,
+        //     });
 
-            if(response.ok){
-                const result = await response.json();
-                if(result.success){
-                    console.log("success:", result);
-                    alert("Form submitted successfully!");
-                }else {
-                    throw new Error("Failed to Submit form :",result.message);
+        //     if(response.ok){
+        //         const result = await response.json();
+        //         if(result.success){
+        //             console.log("success:", result);
+        //             alert("Form submitted successfully!");
+        //         }else {
+        //             throw new Error("Failed to Submit form :",result.message);
+        //         }
+        //     }
+        // }catch (error) {
+        //     console.error(error);
+        //     if(error instanceof Error)
+        //         alert("Failed to Submit form" + error.message);
+        // } finally {
+        //     dispatch(setLoadingScreenDisplay(false));
+        //     setIsSubmitting(false);
+        // }
+        try {
+            const simulatedResponse = {success: true, message:"Simulated response", payload:payload};
+            if(simulatedResponse.success){
+                console.log("success:", simulatedResponse);
+                alert("Form submitted successfully!");
+
+                if(simulatedResponse.payload){
+                    sessionStorage.setItem("contactUsForm", JSON.stringify(simulatedResponse.payload));
                 }
+            }else {
+                throw new Error("Failed to Submit form :"+ simulatedResponse.message);
             }
         }catch (error) {
             console.error(error);

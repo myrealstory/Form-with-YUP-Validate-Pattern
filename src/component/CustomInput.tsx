@@ -74,7 +74,7 @@ export const CustomInput = ({
       {" "}
       {label && label?.length > 0 ? (
         <label
-          className={`${id === "promoCodeInput" ? "mb-4" : "mb-2"} text-xl font-semibold md:text-lg ${labelClasses}`}
+          className={`${id === "promoCodeInput" ? "mb-4" : "mb-2"}  font-semibold  ${labelClasses? labelClasses : "md:text-lg text-xl"}`}
         >
           {label}
         </label>
