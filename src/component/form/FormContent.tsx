@@ -39,7 +39,7 @@ export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
         const commonStyle = "chipBtnWithMoreRadius";
         return [
           {
-            label: t("profile.title_default"),
+            label: t("form.info.title_default"),
             code: undefined,
             buttonStyle: commonStyle,
           },
@@ -640,10 +640,10 @@ export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
                     id="memberNumber"
                     containerClasses=""
                     labelClasses="labelText"
-                    label={`${t("form.info.memberNumber")}${formValue.typeofEnquiry === "MEMBER_ACCOUNT_DELETION" ? "*" : ""}`}
+                    label={`${t("form.inner.memberNo")}${formValue.typeofEnquiry === "MEMBER_ACCOUNT_DELETION" ? "*" : ""}`}
                     type="TEL"
                     maxLength={10}
-                    placeholder={t("form.info.memberNumber")}
+                    placeholder={t("form.inner.memberNo")}
                     value={optionalFormValue.memberNumber}
                     handleChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
 
@@ -680,7 +680,7 @@ export const FormContent = ({lang}:{lang:LocaleKeysType}) => {
                 {shouldInputOrderReceipt && (
                     <CustomInput
                         labelClasses="labelText"
-                        label={t("form.inner.orderNumber")}
+                        label={t("form.inner.orderReceiptNumber")}
                         containerClasses=""
                         type={"TEXT"}
                         placeholder={t("form.info.orderReceiptNumberOptional")}

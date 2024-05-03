@@ -48,7 +48,11 @@ body {
   }
 
   .chipBtnWithMoreRadius {
-    @apply h-[50px] w-[65px] rounded-[49px] xl:h-[55px] xl:w-[75px];
+    @apply h-[50px] w-full max-w-[80px] rounded-[49px] xl:h-[55px] xl:max-w-[120px];
+  }
+
+  .chip-Selected {
+    @apply bg-primaryGold font-bold text-white;
   }
 
   .ContactFormClass {
@@ -81,6 +85,16 @@ body {
 
   .ContactFormDesktopSubmitBtn {
     @apply hidden h-[50px] w-full items-center justify-center rounded-full  text-xl font-medium leading-4 text-white  md:flex  xl:py-[21px];
+  }
+
+  .rotate-x-90 {
+    transform: rotateX(90deg);
+  }
+  .rotate-x-0{
+    transform: rotateX(0);
+  }
+  .-rotate-x-90 {
+    transform: rotateX(-90deg);
   }
 
 }

@@ -79,7 +79,7 @@ export const CustomInput = ({
           {label}
         </label>
       ) : null}
-      {remainLabelHeight ? <div className={`mb-2 text-lg ${labelClasses}`}>&#160;</div> : null}
+      {remainLabelHeight ? <div className={`md:mb-2 text-lg ${labelClasses}`}>&#160;</div> : null}
       <div className="relative flex items-center">
         {leftComponent !== undefined && <div ref={leftDivRef}>{leftComponent()}</div>}
         <input
@@ -96,7 +96,7 @@ export const CustomInput = ({
           }}
           maxLength={maxLength}
           className={`h-[50px] w-full rounded-full border 
-          px-5 py-[12px] text-lg font-semibold text-primaryDark outline-none  placeholder:font-normal
+          px-5 py-[12px] text-md font-semibold text-primaryDark outline-none  placeholder:font-normal
           placeholder:text-primaryGold placeholder:text-opacity-50 focus:border-none focus:outline-none focus:ring-2 focus:ring-primaryGold md:h-[45px] ${
             path === "add-cards" ? "pl-8" : id === "promoCodeInput" ? "pl-6" : "md:pl-8 md:pr-9"
           }  md:py-0 

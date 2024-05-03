@@ -29,7 +29,7 @@ export const CustomChip = ({ unSelectAble, items, onClick, value, hasError, erro
 
   return (
     <div className="flex w-full flex-col gap-1">
-      <div className="flex gap-4">
+      <div className="flex gap-4 justify-between">
         {items.map((item, index) => {
           if (item.code === undefined) {
             return null;

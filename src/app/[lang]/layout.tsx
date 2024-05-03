@@ -43,7 +43,7 @@ export default function RootLayout({
         <ReduxProvider
           lang={lang}
         >
-          <Header />
+          <Header lang={lang}/>
             {children}
         </ReduxProvider>
       </body>
