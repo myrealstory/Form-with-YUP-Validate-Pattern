@@ -41,13 +41,13 @@
             "emailRemark1": "sen-ryo member please fill in your registered email. ",
             "emailRemark2": "Non-member please fill in your contact email.",
             "required": "*This is required",
-            "fileRemarks": "Support jpg./ jpeg./ png.(less than 4MB)",
             "lastName": "Maximum 25 characters for surname field. No special character.",
             "firstName": "Maximum 25 characters for given name field. No special character.",
             "email": "Incorrect Email Format",
-            "hkMobileNumber": "Please enter a valid 8-digit HK mobile number.",
+            "twMobileNumber": "Please enter a valid 9-digit start with 9 of Taiwan mobile number.",
+            "fileRemarks": "Support jpg./ jpeg./ png.(less than 4MB)",
             "fileExceedMsg": "The file exceeds 4MB",
-            "memberNumMsg": "Please enter a 10-digit sen-ryo member number.",
+            "memberNumMsg": "Please enter a 9-digit sen-ryo member number.",
             "failToSubmit": "Sorry, failed to submit your enquiry. Please try again. If this issue presists please contact us at cs@sen-ryo.com.hk",
             "orderReceipt": "Please input 8 or 10-digit number."
         },
@@ -99,7 +99,8 @@
             "memberNumber": "Member Number",
             "onlyTWNumberAllowed": "Only +866 number is allowed",
             "selectTitlePlaceHolder": "- Select Title -",
-            "orderReceiptNumberOptional": "Order/ Receipt Number"
+            "orderReceiptNumberOptional": "Order/ Receipt Number",
+            "upload": "Upload"
 
         }
     }

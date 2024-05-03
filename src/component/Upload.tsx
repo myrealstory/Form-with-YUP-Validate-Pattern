@@ -50,9 +50,9 @@ export const Upload = ({ onImageUpload, lang, onDelete, hasError, error, contain
     <div className={`flex flex-col gap-1 md:pb-4 ${containerClasses}`}>
       <div>
         <h3 className="text-md font-semibold leading-4 md:text-lg lg:text-primaryGold">
-          {translate("contactUs.attachment")}
+          {translate("form.inner.attachment")}
         </h3>
-        <span className="text-md leading-8 text-primaryMine">{translate("contactUs.fileRemarks")}</span>
+        <span className="text-md leading-8 text-primaryMine">{translate("form.error.fileRemarks")}</span>
       </div>
       <div className={`${file && imageTitle !== "" && "flex"}`}>
         <input
@@ -79,7 +79,7 @@ export const Upload = ({ onImageUpload, lang, onDelete, hasError, error, contain
               className="h-auto w-[20px] self-center"
             />
           ) : null}
-          <span className="text-ellipsis whitespace-nowrap overflow-hidden max-w-[250px] xl:max-w-[300px] 2xl:max-w-[330px]">{file && imageTitle !== "" ? imageTitle : `${translate("contactUs.upload")}`}</span>
+          <span className="text-ellipsis whitespace-nowrap overflow-hidden max-w-[250px] xl:max-w-[300px] 2xl:max-w-[330px]">{file && imageTitle !== "" ? imageTitle : `${translate("form.info.upload")}`}</span>
         </label>
         {file && file.name !== "" && (
           <button onClick={handleDelete}>

@@ -25,10 +25,12 @@ const getLangFromString = (str: string) => {
 
   const isNameValid = (string: string) => {
     const startWithSpace = /^ /;
-    const startWithSpaceMatch = string.match(startWithSpace);
-    if (startWithSpaceMatch && [...startWithSpaceMatch]?.length > 0) {
+    const containsNumber = /[0-9]/;
+    const startWithSpaceMatch = string.match(startWithSpace) || string.match(containsNumber);
+    if (startWithSpaceMatch) {
       return false;
     }
+    return true;
   }
 
   const isEmailValid = (email: string) => {
