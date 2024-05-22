@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+(https://myrealstory.github.io/Form-with-YUP-Validate-Pattern/en)
+please visit here directly, I did deployed success from gitHub page.
+
+this side project did rebuild what I learned from last project {Senyro HK} 's form validate 
+
+- Yup Validation advance format
+- RWD
+- animation made with TWCSS
+- Regex validated 
+- more customHook ,refer on component file
+- pull on cookies
+- i18next (tc / en)
+
 
 ## Getting Started
 
